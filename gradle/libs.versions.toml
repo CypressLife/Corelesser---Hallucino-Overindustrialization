@@ -1,0 +1,125 @@
+# 版本目录（Version Catalog）——全项目依赖版本的唯一来源。
+# https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
+#
+# 版本来自 build-1.0 的 gradle/libs.versions.toml，保持 libGDX 生态内部对齐：
+#   libGDX 1.13.1 + KTX 1.13.1-rc1 + VisUI 1.5.5 是同一时期发布、互相兼容的一组版本。
+# 不要单独升级其中一个，否则容易在运行时遇到 NoSuchMethodError。
+
+[versions]
+kotlin = "2.3.10"
+
+# ---- libGDX 生态（与 build-1.0 一致）----
+gdx = "1.13.1"
+ktx = "1.13.1-rc1"
+visui = "1.5.5"
+gdxAi = "1.8.2"
+box2dlights = "1.5"
+gdxControllers = "2.2.3"
+gdxGltf = "2.3.0"
+kryonet = "2.22.0-RC1"
+colorful = "0.9.0"
+
+# ---- kotlinx ----
+kotlinxCoroutines = "1.10.2"
+kotlinxSerialization = "1.10.0"
+kotlinxDatetime = "0.7.1"
+
+# ---- 测试 ----
+junit = "5.11.4"
+
+[libraries]
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+
+# ---- libGDX 核心与扩展 ----
+gdx-core = { module = "com.badlogicgames.gdx:gdx", version.ref = "gdx" }
+gdx-freetype = { module = "com.badlogicgames.gdx:gdx-freetype", version.ref = "gdx" }
+gdx-ai = { module = "com.badlogicgames.gdx:gdx-ai", version.ref = "gdxAi" }
+gdx-box2d = { module = "com.badlogicgames.gdx:gdx-box2d", version.ref = "gdx" }
+gdx-bullet = { module = "com.badlogicgames.gdx:gdx-bullet", version.ref = "gdx" }
+gdx-box2dlights = { module = "com.badlogicgames.box2dlights:box2dlights", version.ref = "box2dlights" }
+gdx-gltf = { module = "com.github.mgsx-dev.gdx-gltf:gltf", version.ref = "gdxGltf" }
+gdx-controllers-core = { module = "com.badlogicgames.gdx-controllers:gdx-controllers-core", version.ref = "gdxControllers" }
+gdx-controllers-desktop = { module = "com.badlogicgames.gdx-controllers:gdx-controllers-desktop", version.ref = "gdxControllers" }
+gdx-backend-lwjgl3 = { module = "com.badlogicgames.gdx:gdx-backend-lwjgl3", version.ref = "gdx" }
+
+# 平台本地库（natives-desktop）需要 classifier，版本目录不支持 classifier，
+# 因此在根 build.gradle.kts 里用 "group:artifact:version:classifier" 字符串声明。
+
+# ---- KTX：libGDX 的 Kotlin 扩展 ----
+ktx-app = { module = "io.github.libktx:ktx-app", version.ref = "ktx" }
+ktx-actors = { module = "io.github.libktx:ktx-actors", version.ref = "ktx" }
+ktx-ai = { module = "io.github.libktx:ktx-ai", version.ref = "ktx" }
+ktx-assets = { module = "io.github.libktx:ktx-assets", version.ref = "ktx" }
+ktx-assets-async = { module = "io.github.libktx:ktx-assets-async", version.ref = "ktx" }
+ktx-async = { module = "io.github.libktx:ktx-async", version.ref = "ktx" }
+ktx-box2d = { module = "io.github.libktx:ktx-box2d", version.ref = "ktx" }
+ktx-collections = { module = "io.github.libktx:ktx-collections", version.ref = "ktx" }
+ktx-freetype = { module = "io.github.libktx:ktx-freetype", version.ref = "ktx" }
+ktx-freetype-async = { module = "io.github.libktx:ktx-freetype-async", version.ref = "ktx" }
+ktx-graphics = { module = "io.github.libktx:ktx-graphics", version.ref = "ktx" }
+ktx-i18n = { module = "io.github.libktx:ktx-i18n", version.ref = "ktx" }
+ktx-inject = { module = "io.github.libktx:ktx-inject", version.ref = "ktx" }
+ktx-log = { module = "io.github.libktx:ktx-log", version.ref = "ktx" }
+ktx-math = { module = "io.github.libktx:ktx-math", version.ref = "ktx" }
+ktx-preferences = { module = "io.github.libktx:ktx-preferences", version.ref = "ktx" }
+ktx-reflect = { module = "io.github.libktx:ktx-reflect", version.ref = "ktx" }
+ktx-scene2d = { module = "io.github.libktx:ktx-scene2d", version.ref = "ktx" }
+ktx-style = { module = "io.github.libktx:ktx-style", version.ref = "ktx" }
+ktx-vis = { module = "io.github.libktx:ktx-vis", version.ref = "ktx" }
+
+# ---- UI ----
+vis-ui = { module = "com.kotcrab.vis:vis-ui", version.ref = "visui" }
+
+# ---- 其他（build-1.0 已声明）----
+kryonet = { module = "com.esotericsoftware:kryonet", version.ref = "kryonet" }
+colorful = { module = "com.github.tommyettinger:colorful", version.ref = "colorful" }
+
+# ---- kotlinx ----
+kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+
+[bundles]
+# :core —— 与平台无关的逻辑依赖（不含 UI）
+gdx = [
+  "gdx-core",
+  "gdx-ai",
+  "gdx-box2d",
+  "gdx-bullet",
+  "gdx-box2dlights",
+  "gdx-gltf",
+  "gdx-controllers-core",
+]
+ktx = [
+  "ktx-ai",
+  "ktx-assets",
+  "ktx-assets-async",
+  "ktx-async",
+  "ktx-box2d",
+  "ktx-collections",
+  "ktx-graphics",
+  "ktx-i18n",
+  "ktx-inject",
+  "ktx-log",
+  "ktx-math",
+  "ktx-preferences",
+  "ktx-reflect",
+]
+# :app —— 前端（Game/Screen/Scene2D/VisUI/字体）
+frontend = [
+  "gdx-freetype",
+  "ktx-app",
+  "ktx-actors",
+  "ktx-freetype",
+  "ktx-freetype-async",
+  "ktx-scene2d",
+  "ktx-style",
+  "vis-ui",
+  "ktx-vis",
+]
+kotlinx = ["kotlinx-coroutines", "kotlinx-serialization", "kotlinx-datetime"]
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
