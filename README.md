@@ -1,4 +1,4 @@
-# **CoreLesser**
+# **Corelesser - Hallucino-Overindustrialization**
 
 一个尝试融合 **工业生产** **大战略** **即时战略** 玩法与机制的开源游戏项目。  
 因为我找不到三者相对平衡的作品，所以创建此项目。
